@@ -1,0 +1,98 @@
+from pystrich.datamatrix import DataMatrixEncoder
+import PIL
+import sys
+import logging
+import os.path
+import pandas as pd
+import numpy as np
+
+
+df = pd.read_excel("Box 1 - 7-19-18 editable.xlsx")   #Extract serial numbers from excel file
+arr = np.array(df)                                    #Turn dataframe into 2D array to easily loop through
+
+if __name__ == "__main__":
+    for a in range(60):
+        encoder = DataMatrixEncoder(arr[a][0])      #Array is 2D
+        encoder.save("test{}.png".format(a))        #Name of picture file
+#Column 1
+list_im1 = []
+for i in range(10):
+        list_im1.append('test{}.png'.format(i))
+imgs    = [ PIL.Image.open(i) for i in list_im1 ]
+# pick the image which is the smallest, and resize the others to match it (can be arbitrary image shape here)
+min_shape = sorted( [(np.sum(i.size), i.size ) for i in imgs])[0][1]
+imgs_comb = np.hstack( (np.asarray( i.resize(min_shape) ) for i in imgs ) )
+
+imgs_comb = np.vstack( (np.asarray( i.resize(min_shape) ) for i in imgs ) )
+imgs_comb = PIL.Image.fromarray( imgs_comb)
+imgs_comb.save( 'List1_vertical.png' )
+#Column 2
+list_im2 = []
+for i in range(10,20):
+        list_im2.append('test{}.png'.format(i))
+imgs    = [ PIL.Image.open(i) for i in list_im2 ]
+# pick the image which is the smallest, and resize the others to match it (can be arbitrary image shape here)
+min_shape = sorted( [(np.sum(i.size), i.size ) for i in imgs])[0][1]
+imgs_comb = np.hstack( (np.asarray( i.resize(min_shape) ) for i in imgs ) )
+
+imgs_comb = np.vstack( (np.asarray( i.resize(min_shape) ) for i in imgs ) )
+imgs_comb = PIL.Image.fromarray( imgs_comb)
+imgs_comb.save( 'List2_vertical.png' )
+#Column 3
+list_im3 = []
+for i in range(20,30):
+        list_im3.append('test{}.png'.format(i))
+imgs    = [ PIL.Image.open(i) for i in list_im3 ]
+# pick the image which is the smallest, and resize the others to match it (can be arbitrary image shape here)
+min_shape = sorted( [(np.sum(i.size), i.size ) for i in imgs])[0][1]
+imgs_comb = np.hstack( (np.asarray( i.resize(min_shape) ) for i in imgs ) )
+
+imgs_comb = np.vstack( (np.asarray( i.resize(min_shape) ) for i in imgs ) )
+imgs_comb = PIL.Image.fromarray( imgs_comb)
+imgs_comb.save( 'List3_vertical.png' )
+#Column 4
+list_im4 = []
+for i in range(30,40):
+        list_im4.append('test{}.png'.format(i))
+imgs    = [ PIL.Image.open(i) for i in list_im4 ]
+# pick the image which is the smallest, and resize the others to match it (can be arbitrary image shape here)
+min_shape = sorted( [(np.sum(i.size), i.size ) for i in imgs])[0][1]
+imgs_comb = np.hstack( (np.asarray( i.resize(min_shape) ) for i in imgs ) )
+
+imgs_comb = np.vstack( (np.asarray( i.resize(min_shape) ) for i in imgs ) )
+imgs_comb = PIL.Image.fromarray( imgs_comb)
+imgs_comb.save( 'List4_vertical.png' )
+#Column 5
+list_im5 = []
+for i in range(40,50):
+        list_im5.append('test{}.png'.format(i))
+imgs    = [ PIL.Image.open(i) for i in list_im5 ]
+# pick the image which is the smallest, and resize the others to match it (can be arbitrary image shape here)
+min_shape = sorted( [(np.sum(i.size), i.size ) for i in imgs])[0][1]
+imgs_comb = np.hstack( (np.asarray( i.resize(min_shape) ) for i in imgs ) )
+
+imgs_comb = np.vstack( (np.asarray( i.resize(min_shape) ) for i in imgs ) )
+imgs_comb = PIL.Image.fromarray( imgs_comb)
+imgs_comb.save( 'List5_vertical.png' )
+#Column 6
+list_im6 = []
+for i in range(50,60):
+        list_im6.append('test{}.png'.format(i))
+imgs    = [ PIL.Image.open(i) for i in list_im6 ]
+# pick the image which is the smallest, and resize the others to match it (can be arbitrary image shape here)
+min_shape = sorted( [(np.sum(i.size), i.size ) for i in imgs])[0][1]
+imgs_comb = np.hstack( (np.asarray( i.resize(min_shape) ) for i in imgs ) )
+
+imgs_comb = np.vstack( (np.asarray( i.resize(min_shape) ) for i in imgs ) )
+imgs_comb = PIL.Image.fromarray( imgs_comb)
+imgs_comb.save( 'List6_vertical.png' )
+#Add all 6 columns
+list_imcomb = ['List1_vertical.png', 'List2_vertical.png', 'List3_vertical.png', 'List4_vertical.png','List5_vertical.png','List6_vertical.png']
+imgs    = [ PIL.Image.open(i) for i in list_imcomb ]
+# pick the image which is the smallest, and resize the others to match it (can be arbitrary image shape here)
+min_shape = sorted( [(np.sum(i.size), i.size ) for i in imgs])[0][1]
+imgs_comb = np.hstack( (np.asarray( i.resize(min_shape) ) for i in imgs ) )
+
+# save and resize final Data Matrix sheet
+imgs_comb = PIL.Image.fromarray( imgs_comb)
+imgs_comb.resize((540,900)).save( 'Listscomb.png' )  
